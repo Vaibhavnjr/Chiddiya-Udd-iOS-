@@ -1,0 +1,563 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		154C2DA72E4F5F57003133BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 154C2D852E4F5F56003133BC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 154C2D8C2E4F5F56003133BC;
+			remoteInfo = "Chidya Udd";
+		};
+		154C2DB12E4F5F57003133BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 154C2D852E4F5F56003133BC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 154C2D8C2E4F5F56003133BC;
+			remoteInfo = "Chidya Udd";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		154C2D8D2E4F5F56003133BC /* Chidya Udd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chidya Udd.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		154C2DA62E4F5F57003133BC /* Chidya UddTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Chidya UddTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		154C2DB02E4F5F57003133BC /* Chidya UddUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Chidya UddUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		154C2D8F2E4F5F56003133BC /* Chidya Udd */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Chidya Udd";
+			sourceTree = "<group>";
+		};
+		154C2DA92E4F5F57003133BC /* Chidya UddTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Chidya UddTests";
+			sourceTree = "<group>";
+		};
+		154C2DB32E4F5F57003133BC /* Chidya UddUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Chidya UddUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		154C2D8A2E4F5F56003133BC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		154C2DA32E4F5F57003133BC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		154C2DAD2E4F5F57003133BC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		154C2D842E4F5F56003133BC = {
+			isa = PBXGroup;
+			children = (
+				154C2D8F2E4F5F56003133BC /* Chidya Udd */,
+				154C2DA92E4F5F57003133BC /* Chidya UddTests */,
+				154C2DB32E4F5F57003133BC /* Chidya UddUITests */,
+				154C2D8E2E4F5F56003133BC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		154C2D8E2E4F5F56003133BC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				154C2D8D2E4F5F56003133BC /* Chidya Udd.app */,
+				154C2DA62E4F5F57003133BC /* Chidya UddTests.xctest */,
+				154C2DB02E4F5F57003133BC /* Chidya UddUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		154C2D8C2E4F5F56003133BC /* Chidya Udd */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 154C2DBA2E4F5F57003133BC /* Build configuration list for PBXNativeTarget "Chidya Udd" */;
+			buildPhases = (
+				154C2D892E4F5F56003133BC /* Sources */,
+				154C2D8A2E4F5F56003133BC /* Frameworks */,
+				154C2D8B2E4F5F56003133BC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				154C2D8F2E4F5F56003133BC /* Chidya Udd */,
+			);
+			name = "Chidya Udd";
+			packageProductDependencies = (
+			);
+			productName = "Chidya Udd";
+			productReference = 154C2D8D2E4F5F56003133BC /* Chidya Udd.app */;
+			productType = "com.apple.product-type.application";
+		};
+		154C2DA52E4F5F57003133BC /* Chidya UddTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 154C2DBD2E4F5F57003133BC /* Build configuration list for PBXNativeTarget "Chidya UddTests" */;
+			buildPhases = (
+				154C2DA22E4F5F57003133BC /* Sources */,
+				154C2DA32E4F5F57003133BC /* Frameworks */,
+				154C2DA42E4F5F57003133BC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				154C2DA82E4F5F57003133BC /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				154C2DA92E4F5F57003133BC /* Chidya UddTests */,
+			);
+			name = "Chidya UddTests";
+			packageProductDependencies = (
+			);
+			productName = "Chidya UddTests";
+			productReference = 154C2DA62E4F5F57003133BC /* Chidya UddTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		154C2DAF2E4F5F57003133BC /* Chidya UddUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 154C2DC02E4F5F57003133BC /* Build configuration list for PBXNativeTarget "Chidya UddUITests" */;
+			buildPhases = (
+				154C2DAC2E4F5F57003133BC /* Sources */,
+				154C2DAD2E4F5F57003133BC /* Frameworks */,
+				154C2DAE2E4F5F57003133BC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				154C2DB22E4F5F57003133BC /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				154C2DB32E4F5F57003133BC /* Chidya UddUITests */,
+			);
+			name = "Chidya UddUITests";
+			packageProductDependencies = (
+			);
+			productName = "Chidya UddUITests";
+			productReference = 154C2DB02E4F5F57003133BC /* Chidya UddUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		154C2D852E4F5F56003133BC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					154C2D8C2E4F5F56003133BC = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					154C2DA52E4F5F57003133BC = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 154C2D8C2E4F5F56003133BC;
+					};
+					154C2DAF2E4F5F57003133BC = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 154C2D8C2E4F5F56003133BC;
+					};
+				};
+			};
+			buildConfigurationList = 154C2D882E4F5F56003133BC /* Build configuration list for PBXProject "Chidya Udd" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 154C2D842E4F5F56003133BC;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 154C2D8E2E4F5F56003133BC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				154C2D8C2E4F5F56003133BC /* Chidya Udd */,
+				154C2DA52E4F5F57003133BC /* Chidya UddTests */,
+				154C2DAF2E4F5F57003133BC /* Chidya UddUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		154C2D8B2E4F5F56003133BC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		154C2DA42E4F5F57003133BC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		154C2DAE2E4F5F57003133BC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		154C2D892E4F5F56003133BC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		154C2DA22E4F5F57003133BC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		154C2DAC2E4F5F57003133BC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		154C2DA82E4F5F57003133BC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 154C2D8C2E4F5F56003133BC /* Chidya Udd */;
+			targetProxy = 154C2DA72E4F5F57003133BC /* PBXContainerItemProxy */;
+		};
+		154C2DB22E4F5F57003133BC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 154C2D8C2E4F5F56003133BC /* Chidya Udd */;
+			targetProxy = 154C2DB12E4F5F57003133BC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		154C2DB82E4F5F57003133BC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 49W487ZZQ7;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		154C2DB92E4F5F57003133BC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 49W487ZZQ7;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		154C2DBB2E4F5F57003133BC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 49W487ZZQ7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vaibhavpant.chidya-udd";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		154C2DBC2E4F5F57003133BC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 49W487ZZQ7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vaibhavpant.chidya-udd";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		154C2DBE2E4F5F57003133BC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 49W487ZZQ7;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vaibhavpant.chidya-uddTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chidya Udd.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Chidya Udd";
+			};
+			name = Debug;
+		};
+		154C2DBF2E4F5F57003133BC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 49W487ZZQ7;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vaibhavpant.chidya-uddTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chidya Udd.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Chidya Udd";
+			};
+			name = Release;
+		};
+		154C2DC12E4F5F57003133BC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 49W487ZZQ7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vaibhavpant.chidya-uddUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Chidya Udd";
+			};
+			name = Debug;
+		};
+		154C2DC22E4F5F57003133BC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 49W487ZZQ7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vaibhavpant.chidya-uddUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Chidya Udd";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		154C2D882E4F5F56003133BC /* Build configuration list for PBXProject "Chidya Udd" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				154C2DB82E4F5F57003133BC /* Debug */,
+				154C2DB92E4F5F57003133BC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		154C2DBA2E4F5F57003133BC /* Build configuration list for PBXNativeTarget "Chidya Udd" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				154C2DBB2E4F5F57003133BC /* Debug */,
+				154C2DBC2E4F5F57003133BC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		154C2DBD2E4F5F57003133BC /* Build configuration list for PBXNativeTarget "Chidya UddTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				154C2DBE2E4F5F57003133BC /* Debug */,
+				154C2DBF2E4F5F57003133BC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		154C2DC02E4F5F57003133BC /* Build configuration list for PBXNativeTarget "Chidya UddUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				154C2DC12E4F5F57003133BC /* Debug */,
+				154C2DC22E4F5F57003133BC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 154C2D852E4F5F56003133BC /* Project object */;
+}
