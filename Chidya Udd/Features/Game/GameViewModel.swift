@@ -10,7 +10,7 @@ final class GameViewModel: ObservableObject {
     @Published private(set) var showConfetti = false
 
     let minPlayers = 2
-    let maxPlayers = 4
+    let maxPlayers = 5
     let reactionWindow: TimeInterval = 1.0
 
     private let countdownDuration = 3
@@ -116,6 +116,7 @@ final class GameViewModel: ObservableObject {
 
             players[index].position = touch.location(in: view)
             players[index].isFingerDown = true
+            updateReadinessForFingerDownPlayer(at: index)
         }
     }
 
@@ -155,6 +156,9 @@ final class GameViewModel: ObservableObject {
             assignTouch(identity, at: position, statusWhenDown: .ready)
             handleBetweenRoundReadinessChanged()
 
+        case .results:
+            assignCorrectResultTouch(identity, at: position)
+
         default:
             break
         }
@@ -174,7 +178,7 @@ final class GameViewModel: ObservableObject {
             handlePregamePlayersChanged()
 
         case .locked:
-            players[index].status = .needsFingerBack
+            setNeedsFingerBackIfFingerIsUp(at: index)
             lockTask?.cancel()
             handleLockedReadinessChanged()
 
@@ -182,14 +186,12 @@ final class GameViewModel: ObservableObject {
             recordLift(for: playerID)
 
         case .betweenRounds:
-            players[index].status = .needsFingerBack
+            setNeedsFingerBackIfFingerIsUp(at: index)
             betweenRoundTask?.cancel()
             handleBetweenRoundReadinessChanged()
 
         case .results:
-            if players[index].isAlive && players[index].status == .correct {
-                players[index].status = .needsFingerBack
-            }
+            break
 
         default:
             break
@@ -424,6 +426,24 @@ final class GameViewModel: ObservableObject {
         }
     }
 
+    private func updateReadinessForFingerDownPlayer(at index: Array<GamePlayer>.Index) {
+        guard players[index].isAlive, players[index].isFingerDown else { return }
+
+        switch phase {
+        case .locked:
+            players[index].status = .locked
+        case .betweenRounds:
+            players[index].status = .ready
+        default:
+            break
+        }
+    }
+
+    private func setNeedsFingerBackIfFingerIsUp(at index: Array<GamePlayer>.Index) {
+        guard !players[index].isFingerDown else { return }
+        players[index].status = .needsFingerBack
+    }
+
     private func assignTouch(_ identity: ObjectIdentifier, at position: CGPoint, statusWhenDown: PlayerStatus) {
         guard let index = nearestAlivePlayerMissingFinger(to: position) else { return }
 
@@ -435,9 +455,28 @@ final class GameViewModel: ObservableObject {
         Haptics.light()
     }
 
+    private func assignCorrectResultTouch(_ identity: ObjectIdentifier, at position: CGPoint) {
+        guard let index = nearestCorrectResultPlayerMissingFinger(to: position) else { return }
+
+        players[index].touchIdentity = identity
+        players[index].position = position
+        players[index].isFingerDown = true
+        touchToPlayerID[identity] = players[index].id
+    }
+
     private func nearestAlivePlayerMissingFinger(to point: CGPoint) -> Array<GamePlayer>.Index? {
         let candidates = players.indices.filter { index in
             players[index].isAlive && !players[index].isFingerDown
+        }
+
+        return candidates.min { lhs, rhs in
+            distanceSquared(from: players[lhs].position, to: point) < distanceSquared(from: players[rhs].position, to: point)
+        }
+    }
+
+    private func nearestCorrectResultPlayerMissingFinger(to point: CGPoint) -> Array<GamePlayer>.Index? {
+        let candidates = players.indices.filter { index in
+            players[index].isAlive && players[index].status == .correct && !players[index].isFingerDown
         }
 
         return candidates.min { lhs, rhs in

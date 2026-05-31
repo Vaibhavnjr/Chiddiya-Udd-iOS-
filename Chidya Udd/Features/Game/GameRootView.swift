@@ -212,11 +212,13 @@ private struct DynamicPlayerCirclesLayer: View {
             divisor = 3.65
         case 3:
             divisor = 4.05
-        default:
+        case 4:
             divisor = 4.45
+        default:
+            divisor = 4.8
         }
 
-        return min(132, max(82, shortestSide / divisor))
+        return min(134, max(84, shortestSide / divisor))
     }
 }
 
