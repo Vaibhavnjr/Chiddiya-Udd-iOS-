@@ -6,7 +6,7 @@ struct SplashView: View {
 
     var body: some View {
         ZStack {
-            Color.white.ignoresSafeArea()
+            GameTheme.background.ignoresSafeArea()
 
             VStack(spacing: 18) {
                 Image(systemName: "bird.fill")

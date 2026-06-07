@@ -51,11 +51,11 @@ struct CustomStepper: View {
                 .buttonStyle(PlainButtonStyle())
                 .foregroundStyle(value < range.upperBound ? GameTheme.textPrimary : GameTheme.textSecondary.opacity(0.3))
             }
-            .background(GameTheme.background)
+            .background(GameTheme.surface.opacity(0.72))
             .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
             .overlay(
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .stroke(GameTheme.textSecondary.opacity(0.1), lineWidth: 1)
+                    .stroke(GameTheme.border, lineWidth: 1)
             )
         }
     }

@@ -13,7 +13,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(red: 98 / 255, green: 206 / 255, blue: 181 / 255, alpha: 1)
         view.isMultipleTouchEnabled = true
 
         let rootView = AppShellView()

@@ -2,19 +2,22 @@ import SwiftUI
 
 enum GameTheme {
     static let cornerRadius: CGFloat = 20
-    
-    // Vibrant Flat Palette
-    static let background = Color(hex: "F8F9FA") // Clean Off-White
-    static let primary = Color(hex: "FF2E63")     // Vibrant Pink/Red
-    static let secondary = Color(hex: "08D9D6")   // Cyan/Teal
-    static let accent = Color(hex: "252A34")      // Dark Gunmetal
-    static let success = Color(hex: "00ADB5")     // Teal
-    static let warning = Color(hex: "FFC107")     // Amber
-    
-    // Text Colors
-    static let textPrimary = Color(hex: "252A34")
-    static let textSecondary = Color(hex: "718093")
-    static let textOnPrimary = Color.white
+
+    static let background = Color(hex: "62CEB5")
+    static let primary = Color(hex: "ED2126")
+    static let surface = Color(hex: "FFFFFF")
+
+    static let textPrimary = Color(hex: "1F2328")
+    static let textSecondary = Color(hex: "1F2328").opacity(0.68)
+    static let textOnPrimary = Color(hex: "FFFFFF")
+    static let textOnSurface = Color(hex: "1F2328")
+
+    static let success = Color(hex: "FFFFFF")
+    static let warning = Color(hex: "FFD54A")
+    static let error = Color(hex: "ED2126")
+
+    static let border = Color(hex: "FFFFFF").opacity(0.64)
+    static let shadow = Color(hex: "1F2328").opacity(0.16)
 }
 
 extension Color {

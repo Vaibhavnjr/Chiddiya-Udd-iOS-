@@ -11,13 +11,12 @@ struct ConfettiView: UIViewRepresentable {
         emitter.emitterShape = .line
         emitter.emitterSize = CGSize(width: UIScreen.main.bounds.width, height: 1)
         
-        // Vibrant colors from GameTheme
         let colors: [UIColor] = [
-            UIColor(red: 1.0, green: 0.18, blue: 0.39, alpha: 1.0), // Primary (Pink/Red)
-            UIColor(red: 0.03, green: 0.85, blue: 0.84, alpha: 1.0), // Secondary (Cyan)
-            UIColor(red: 0.0, green: 0.68, blue: 0.71, alpha: 1.0),  // Success (Teal)
-            UIColor(red: 1.0, green: 0.76, blue: 0.03, alpha: 1.0),  // Warning (Amber)
-            UIColor(red: 0.5, green: 0.0, blue: 0.5, alpha: 1.0)     // Purple Accent
+            UIColor(red: 237 / 255, green: 33 / 255, blue: 38 / 255, alpha: 1),
+            UIColor(red: 98 / 255, green: 206 / 255, blue: 181 / 255, alpha: 1),
+            UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1),
+            UIColor(red: 255 / 255, green: 213 / 255, blue: 74 / 255, alpha: 1),
+            UIColor(red: 31 / 255, green: 35 / 255, blue: 40 / 255, alpha: 1)
         ]
         
         let cells: [CAEmitterCell] = colors.flatMap { color in
@@ -67,5 +66,4 @@ struct ConfettiView: UIViewRepresentable {
         return image.cgImage
     }
 }
-
 

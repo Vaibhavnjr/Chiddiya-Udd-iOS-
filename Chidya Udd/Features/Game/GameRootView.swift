@@ -27,7 +27,7 @@ struct GameRootView: View {
 
     private var gameContent: some View {
         ZStack {
-            Color.white.ignoresSafeArea()
+            GameTheme.background.ignoresSafeArea()
 
             TouchCaptureView(viewModel: viewModel)
                 .ignoresSafeArea()
@@ -120,8 +120,11 @@ struct GameRootView: View {
                 .font(.system(size: 68, weight: .black, design: .rounded))
                 .minimumScaleFactor(0.58)
                 .lineLimit(1)
-                .foregroundStyle(GameTheme.textPrimary)
-                .shadow(color: GameTheme.secondary.opacity(0.16), radius: 18, x: 0, y: 8)
+                .foregroundStyle(GameTheme.textOnSurface)
+                .padding(.horizontal, 28)
+                .padding(.vertical, 18)
+                .background(GameTheme.surface.opacity(0.92), in: Capsule())
+                .shadow(color: GameTheme.shadow, radius: 18, x: 0, y: 8)
 
         case .betweenRounds:
             Text(viewModel.statusText)
@@ -133,7 +136,7 @@ struct GameRootView: View {
             Text("Everyone got out!")
                 .font(.system(size: 38, weight: .black, design: .rounded))
                 .multilineTextAlignment(.center)
-                .foregroundStyle(.white)
+                .foregroundStyle(GameTheme.textOnPrimary)
 
         case .winner:
             EmptyView()
@@ -159,7 +162,7 @@ struct GameRootView: View {
     }
 
     private var allOutOverlay: some View {
-        Color(hex: "252A34")
+        GameTheme.textPrimary
             .opacity(0.92)
             .ignoresSafeArea()
             .overlay {
@@ -171,7 +174,7 @@ struct GameRootView: View {
                     Text("Everyone got out!")
                         .font(.system(size: 38, weight: .black, design: .rounded))
                         .multilineTextAlignment(.center)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(GameTheme.textOnPrimary)
                 }
                 .padding(28)
             }
@@ -233,7 +236,7 @@ private struct PlayerTouchCircle: View {
         ZStack {
             if showsRipple {
                 Circle()
-                    .stroke(GameTheme.secondary.opacity(0.34), lineWidth: 8)
+                    .stroke(GameTheme.surface.opacity(0.42), lineWidth: 8)
                     .frame(width: diameter * 1.35, height: diameter * 1.35)
                     .scaleEffect(ripple ? 1.22 : 0.72)
                     .opacity(ripple ? 0 : 0.72)
@@ -250,8 +253,8 @@ private struct PlayerTouchCircle: View {
             if let symbol {
                 Image(systemName: symbol)
                     .font(.system(size: diameter * 0.36, weight: .black))
-                    .foregroundStyle(.white)
-                    .shadow(color: .black.opacity(0.18), radius: 5, x: 0, y: 2)
+                    .foregroundStyle(symbolColor)
+                    .shadow(color: GameTheme.shadow, radius: 5, x: 0, y: 2)
                     .transition(.scale.combined(with: .opacity))
             }
         }
@@ -270,15 +273,15 @@ private struct PlayerTouchCircle: View {
     private var fillColor: Color {
         switch player.status {
         case .correct, .winner:
-            return Color(hex: "18A058")
+            return GameTheme.success
         case .wrong:
-            return Color(hex: "E5484D")
+            return GameTheme.error
         case .needsFingerBack:
-            return Color.white.opacity(0.64)
+            return GameTheme.surface.opacity(0.62)
         case .locked:
-            return GameTheme.accent
+            return GameTheme.textPrimary
         case .ready:
-            return GameTheme.secondary
+            return GameTheme.surface.opacity(0.86)
         case .registering:
             return GameTheme.primary
         case .eliminated:
@@ -294,9 +297,14 @@ private struct PlayerTouchCircle: View {
                     GameTheme.warning,
                     style: StrokeStyle(lineWidth: 4, lineCap: .round, dash: [8, 8])
                 )
+        } else if player.status == .correct || player.status == .winner {
+            Circle()
+                .stroke(GameTheme.primary, lineWidth: 4)
+        } else if player.status == .eliminated {
+            EmptyView()
         } else {
             Circle()
-                .stroke(Color.white.opacity(0.78), lineWidth: 3)
+                .stroke(GameTheme.border, lineWidth: 3)
         }
     }
 
@@ -308,6 +316,17 @@ private struct PlayerTouchCircle: View {
             return "xmark"
         default:
             return nil
+        }
+    }
+
+    private var symbolColor: Color {
+        switch player.status {
+        case .correct, .winner:
+            return GameTheme.primary
+        case .wrong:
+            return GameTheme.textOnPrimary
+        default:
+            return GameTheme.textOnPrimary
         }
     }
 
@@ -330,14 +349,14 @@ private struct PlayerTouchCircle: View {
 
     private var shadowColor: Color {
         switch player.status {
-        case .needsFingerBack:
+        case .needsFingerBack, .eliminated:
             return .clear
         case .wrong:
-            return Color(hex: "E5484D").opacity(0.24)
+            return GameTheme.error.opacity(0.28)
         case .correct, .winner:
-            return Color(hex: "18A058").opacity(0.24)
+            return GameTheme.surface.opacity(0.34)
         default:
-            return Color.black.opacity(0.14)
+            return GameTheme.shadow
         }
     }
 }
@@ -347,34 +366,40 @@ private struct WinnerView: View {
 
     var body: some View {
         ZStack {
-            Color(hex: "18A058")
+            GameTheme.background
                 .ignoresSafeArea()
 
             BirdFlockView()
-                .opacity(0.22)
+                .opacity(0.18)
                 .allowsHitTesting(false)
 
             VStack(spacing: 26) {
                 Image(systemName: "bird.fill")
                     .font(.system(size: 86, weight: .black))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(GameTheme.primary)
 
                 Text("You Win")
                     .font(.system(size: 58, weight: .black, design: .rounded))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(GameTheme.textOnSurface)
 
                 Button(action: playAgain) {
                     Label("Play Again", systemImage: "arrow.clockwise")
                         .font(.system(size: 20, weight: .black, design: .rounded))
-                        .foregroundStyle(Color(hex: "18A058"))
+                        .foregroundStyle(GameTheme.textOnPrimary)
                         .padding(.horizontal, 26)
                         .padding(.vertical, 15)
-                        .background(Color.white, in: Capsule())
+                        .background(GameTheme.primary, in: Capsule())
                 }
                 .buttonStyle(.plain)
                 .padding(.top, 8)
             }
             .padding(30)
+            .padding(.vertical, 14)
+            .background(
+                GameTheme.surface.opacity(0.94),
+                in: RoundedRectangle(cornerRadius: 32, style: .continuous)
+            )
+            .shadow(color: GameTheme.shadow, radius: 24, x: 0, y: 12)
         }
     }
 }
@@ -397,7 +422,7 @@ private struct BirdFlockView: View {
                 let item = positions[index]
                 Image(systemName: "bird.fill")
                     .font(.system(size: item.size, weight: .black))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(GameTheme.surface)
                     .rotationEffect(.degrees(item.rotation))
                     .position(
                         x: proxy.size.width * item.x,
