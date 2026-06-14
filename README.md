@@ -44,7 +44,7 @@ The important rules live in `Features/Game/GameViewModel.swift`:
 
 - Minimum players: `2`
 - Maximum players: `4`
-- Reaction window: `1` second
+- Reaction window: starts at `1` second, decreases by `0.1` seconds after every completed round, and stops at `0.4` seconds
 - Countdown: `3` seconds
 - Items are stored in the `gameItems` array as `GameItem(name:canFly:)`
 

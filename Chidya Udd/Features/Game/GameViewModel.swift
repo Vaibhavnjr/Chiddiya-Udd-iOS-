@@ -8,10 +8,10 @@ final class GameViewModel: ObservableObject {
     @Published private(set) var countdownValue: Int = 3
     @Published private(set) var activeItem: GameItem?
     @Published private(set) var showConfetti = false
+    @Published private(set) var reactionWindow = GameRules.initialReactionWindow
 
     let minPlayers = 2
     let maxPlayers = 5
-    let reactionWindow: TimeInterval = 1.0
 
     private let countdownDuration = 3
     private let lockDuration: TimeInterval = 1.15
@@ -35,6 +35,7 @@ final class GameViewModel: ObservableObject {
     private var touchToPlayerID: [ObjectIdentifier: UUID] = [:]
     private var answeredPlayerIDs = Set<UUID>()
     private var lastItemName: String?
+    private var reactionDeadline: TimeInterval?
 
     private var splashTask: Task<Void, Never>?
     private var countdownTask: Task<Void, Never>?
@@ -98,6 +99,8 @@ final class GameViewModel: ObservableObject {
         players.removeAll()
         activeItem = nil
         countdownValue = countdownDuration
+        reactionWindow = GameRules.initialReactionWindow
+        reactionDeadline = nil
         showConfetti = false
         phase = .waitingForPlayers
     }
@@ -183,7 +186,7 @@ final class GameViewModel: ObservableObject {
             handleLockedReadinessChanged()
 
         case .callout:
-            recordLift(for: playerID)
+            recordLift(for: playerID, at: touch.timestamp)
 
         case .betweenRounds:
             setNeedsFingerBackIfFingerIsUp(at: index)
@@ -283,6 +286,9 @@ final class GameViewModel: ObservableObject {
         activeItem = pickGameItem()
         answeredPlayerIDs.removeAll()
         phase = .callout
+        // UITouch timestamps and systemUptime use the same monotonic time base.
+        let deadline = ProcessInfo.processInfo.systemUptime + reactionWindow
+        reactionDeadline = deadline
 
         for index in players.indices where players[index].isAlive {
             players[index].status = .locked
@@ -296,21 +302,27 @@ final class GameViewModel: ObservableObject {
         reactionTask?.cancel()
         reactionTask = Task { [weak self] in
             guard let self else { return }
-            try? await Task.sleep(nanoseconds: UInt64(self.reactionWindow * 1_000_000_000))
+            let remaining = max(0, deadline - ProcessInfo.processInfo.systemUptime)
+            try? await Task.sleep(nanoseconds: UInt64(remaining * 1_000_000_000))
             guard !Task.isCancelled else { return }
             self.evaluatePendingAnswers()
         }
     }
 
-    private func recordLift(for playerID: UUID) {
+    private func recordLift(for playerID: UUID, at timestamp: TimeInterval) {
         guard phase == .callout,
               let item = activeItem,
+              let reactionDeadline,
               !answeredPlayerIDs.contains(playerID),
               let index = playerIndex(for: playerID),
               players[index].isAlive else { return }
 
         answeredPlayerIDs.insert(playerID)
-        let correct = item.canFly
+        let correct = GameRules.isLiftCorrect(
+            canFly: item.canFly,
+            at: timestamp,
+            deadline: reactionDeadline
+        )
         players[index].status = correct ? .correct : .wrong
 
         if correct {
@@ -324,6 +336,8 @@ final class GameViewModel: ObservableObject {
         guard phase == .callout, let item = activeItem else { return }
 
         phase = .evaluating
+        reactionTask = nil
+        reactionDeadline = nil
 
         for index in players.indices where players[index].isAlive {
             let playerID = players[index].id
@@ -341,6 +355,7 @@ final class GameViewModel: ObservableObject {
             Haptics.success()
         }
 
+        reactionWindow = GameRules.nextReactionWindow(after: reactionWindow)
         showResults()
     }
 

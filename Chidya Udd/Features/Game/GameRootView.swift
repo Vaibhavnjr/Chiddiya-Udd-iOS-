@@ -273,7 +273,7 @@ private struct PlayerTouchCircle: View {
     private var fillColor: Color {
         switch player.status {
         case .correct, .winner:
-            return GameTheme.success
+            return GameTheme.surface
         case .wrong:
             return GameTheme.error
         case .needsFingerBack:
@@ -299,7 +299,7 @@ private struct PlayerTouchCircle: View {
                 )
         } else if player.status == .correct || player.status == .winner {
             Circle()
-                .stroke(GameTheme.primary, lineWidth: 4)
+                .stroke(GameTheme.success, lineWidth: 4)
         } else if player.status == .eliminated {
             EmptyView()
         } else {
@@ -322,7 +322,7 @@ private struct PlayerTouchCircle: View {
     private var symbolColor: Color {
         switch player.status {
         case .correct, .winner:
-            return GameTheme.primary
+            return GameTheme.success
         case .wrong:
             return GameTheme.textOnPrimary
         default:
@@ -354,7 +354,7 @@ private struct PlayerTouchCircle: View {
         case .wrong:
             return GameTheme.error.opacity(0.28)
         case .correct, .winner:
-            return GameTheme.surface.opacity(0.34)
+            return GameTheme.success.opacity(0.34)
         default:
             return GameTheme.shadow
         }

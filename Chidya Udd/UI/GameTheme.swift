@@ -12,7 +12,7 @@ enum GameTheme {
     static let textOnPrimary = Color(hex: "FFFFFF")
     static let textOnSurface = Color(hex: "1F2328")
 
-    static let success = Color(hex: "FFFFFF")
+    static let success = Color(hex: "16A34A")
     static let warning = Color(hex: "FFD54A")
     static let error = Color(hex: "ED2126")
 
