@@ -9,6 +9,7 @@ final class GameViewModel: ObservableObject {
     @Published private(set) var activeItem: GameItem?
     @Published private(set) var showConfetti = false
     @Published private(set) var reactionWindow = GameRules.initialReactionWindow
+    @Published private(set) var speechRate = GameRules.initialSpeechRate
 
     let minPlayers = 2
     let maxPlayers = 5
@@ -18,23 +19,11 @@ final class GameViewModel: ObservableObject {
     private let resultDuration: TimeInterval = 1.45
     private let betweenRoundDelay: TimeInterval = 1.0
     private let allOutDuration: TimeInterval = 1.8
-
-    private let gameItems: [GameItem] = [
-        GameItem(name: "Bird", canFly: true),
-        GameItem(name: "Pigeon", canFly: true),
-        GameItem(name: "Crow", canFly: true),
-        GameItem(name: "Eagle", canFly: true),
-        GameItem(name: "Parrot", canFly: true),
-        GameItem(name: "Cow", canFly: false),
-        GameItem(name: "Dog", canFly: false),
-        GameItem(name: "Cat", canFly: false),
-        GameItem(name: "Elephant", canFly: false),
-        GameItem(name: "Fish", canFly: false)
-    ]
+    private let reactionCueAudioFraction = 0.62
 
     private var touchToPlayerID: [ObjectIdentifier: UUID] = [:]
     private var answeredPlayerIDs = Set<UUID>()
-    private var lastItemName: String?
+    private var lastItem: GameItem?
     private var reactionDeadline: TimeInterval?
 
     private var splashTask: Task<Void, Never>?
@@ -100,6 +89,8 @@ final class GameViewModel: ObservableObject {
         activeItem = nil
         countdownValue = countdownDuration
         reactionWindow = GameRules.initialReactionWindow
+        speechRate = GameRules.initialSpeechRate
+        lastItem = nil
         reactionDeadline = nil
         showConfetti = false
         phase = .waitingForPlayers
@@ -286,22 +277,40 @@ final class GameViewModel: ObservableObject {
         activeItem = pickGameItem()
         answeredPlayerIDs.removeAll()
         phase = .callout
-        // UITouch timestamps and systemUptime use the same monotonic time base.
-        let deadline = ProcessInfo.processInfo.systemUptime + reactionWindow
-        reactionDeadline = deadline
+        reactionDeadline = nil
 
         for index in players.indices where players[index].isAlive {
             players[index].status = .locked
         }
 
+        var cueDelay: TimeInterval = 0
         if let item = activeItem {
             Haptics.selection()
-            SpeechService.shared.speak(item.name)
+            if let audioName = item.audioName, SoundManager.shared.play(audioName) {
+                let duration = SoundManager.shared.duration(for: audioName) ?? 0
+                let scaledDelay = duration * reactionCueAudioFraction / Double(max(speechRate, 0.1))
+                cueDelay = min(max(scaledDelay, 0), duration)
+            } else {
+                SpeechService.shared.speak(item.name, rateMultiplier: speechRate)
+            }
         }
 
         reactionTask?.cancel()
         reactionTask = Task { [weak self] in
             guard let self else { return }
+            try? await Task.sleep(nanoseconds: UInt64(cueDelay * 1_000_000_000))
+            guard !Task.isCancelled,
+                  self.phase == .callout else { return }
+
+            // UITouch timestamps and systemUptime use the same monotonic time base.
+            let deadline = ProcessInfo.processInfo.systemUptime + self.reactionWindow
+            self.reactionDeadline = deadline
+
+            if self.allAlivePlayersAnswered {
+                self.evaluatePendingAnswers()
+                return
+            }
+
             let remaining = max(0, deadline - ProcessInfo.processInfo.systemUptime)
             try? await Task.sleep(nanoseconds: UInt64(remaining * 1_000_000_000))
             guard !Task.isCancelled else { return }
@@ -312,23 +321,32 @@ final class GameViewModel: ObservableObject {
     private func recordLift(for playerID: UUID, at timestamp: TimeInterval) {
         guard phase == .callout,
               let item = activeItem,
-              let reactionDeadline,
               !answeredPlayerIDs.contains(playerID),
               let index = playerIndex(for: playerID),
               players[index].isAlive else { return }
 
         answeredPlayerIDs.insert(playerID)
-        let correct = GameRules.isLiftCorrect(
-            canFly: item.canFly,
-            at: timestamp,
-            deadline: reactionDeadline
-        )
+        let correct: Bool
+        if let reactionDeadline {
+            correct = GameRules.isLiftCorrect(
+                canFly: item.canFly,
+                at: timestamp,
+                deadline: reactionDeadline
+            )
+        } else {
+            correct = !item.canFly
+        }
         players[index].status = correct ? .correct : .wrong
 
         if correct {
             Haptics.success()
         } else {
             Haptics.error()
+        }
+
+        if reactionDeadline != nil, allAlivePlayersAnswered {
+            reactionTask?.cancel()
+            evaluatePendingAnswers()
         }
     }
 
@@ -355,7 +373,7 @@ final class GameViewModel: ObservableObject {
             Haptics.success()
         }
 
-        reactionWindow = GameRules.nextReactionWindow(after: reactionWindow)
+        speechRate = GameRules.nextSpeechRate(after: speechRate)
         showResults()
     }
 
@@ -500,10 +518,13 @@ final class GameViewModel: ObservableObject {
     }
 
     private func pickGameItem() -> GameItem {
-        let pool = gameItems.filter { $0.name != lastItemName }
-        let item = pool.randomElement() ?? gameItems.randomElement() ?? GameItem(name: "Bird", canFly: true)
-        lastItemName = item.name
+        let item = GameRules.chooseItem(after: lastItem)
+        lastItem = item
         return item
+    }
+
+    private var allAlivePlayersAnswered: Bool {
+        alivePlayers.allSatisfy { answeredPlayerIDs.contains($0.id) }
     }
 
     private func playerIndex(for id: UUID) -> Array<GamePlayer>.Index? {

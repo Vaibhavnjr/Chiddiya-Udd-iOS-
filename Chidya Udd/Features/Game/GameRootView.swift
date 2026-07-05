@@ -47,6 +47,7 @@ struct GameRootView: View {
 
                 centerContent
                     .padding(.horizontal, 28)
+                    .frame(maxWidth: .infinity)
                     .allowsHitTesting(false)
 
                 Spacer(minLength: 28)
@@ -56,6 +57,9 @@ struct GameRootView: View {
                     .padding(.bottom, 34)
                     .allowsHitTesting(false)
             }
+
+            timingIndicator
+                .allowsHitTesting(false)
 
             if viewModel.phase == .allOut {
                 allOutOverlay
@@ -76,11 +80,9 @@ struct GameRootView: View {
 
     private var header: some View {
         HStack(spacing: 8) {
-            Image(systemName: "bird.fill")
-                .font(.system(size: 22, weight: .black))
-                .foregroundStyle(GameTheme.primary)
+            BirdMark(size: 22)
 
-            Text("Chiddya Udd")
+            Text("Chiddiya Udd")
                 .font(.system(size: 22, weight: .black, design: .rounded))
                 .foregroundStyle(GameTheme.textPrimary)
         }
@@ -88,62 +90,60 @@ struct GameRootView: View {
         .allowsHitTesting(false)
     }
 
+    private var timingIndicator: some View {
+        VStack {
+            Text("Reaction: \(formattedReactionWindow)  ·  Voice: \(formattedSpeechRate)x")
+                .font(.system(size: 14, weight: .bold, design: .rounded))
+                .foregroundStyle(GameTheme.textSecondary)
+                .padding(.top, 58)
+
+            Spacer()
+        }
+    }
+
+    private var formattedReactionWindow: String {
+        let tenths = Int((viewModel.reactionWindow * 10).rounded())
+        return "\(tenths / 10).\(tenths % 10)s"
+    }
+
+    private var formattedSpeechRate: String {
+        let formatted = String(format: "%.2f", viewModel.speechRate)
+        return formatted
+            .replacingOccurrences(of: #"0+$"#, with: "", options: .regularExpression)
+            .replacingOccurrences(of: #"\.$"#, with: "", options: .regularExpression)
+    }
+
     @ViewBuilder
     private var centerContent: some View {
-        switch viewModel.phase {
-        case .waitingForPlayers:
-            Text("Put fingers to start game")
-                .font(.system(size: 30, weight: .black, design: .rounded))
-                .multilineTextAlignment(.center)
-                .foregroundStyle(GameTheme.textPrimary)
+        ZStack {
+            switch viewModel.phase {
+            case .waitingForPlayers:
+                GameText(text: "Put fingers to start game", size: 30, maxLines: 2)
+                    .frame(maxWidth: 240)
 
-        case .countdown:
-            VStack(spacing: 10) {
-                Text("\(viewModel.countdownValue)")
-                    .font(.system(size: 118, weight: .black, design: .rounded))
-                    .foregroundStyle(GameTheme.primary)
-                    .contentTransition(.numericText())
+            case .countdown:
+                VStack(spacing: 10) {
+                    GameText(text: "\(viewModel.countdownValue)", size: 118, color: GameTheme.primary)
+                        .contentTransition(.numericText())
 
-                Text("Hold steady")
-                    .font(.system(size: 22, weight: .bold, design: .rounded))
-                    .foregroundStyle(GameTheme.textSecondary)
+                    GameText(text: "Hold steady", size: 22, weight: .bold, color: GameTheme.textSecondary)
+                }
+
+            case .locked:
+                GameText(text: viewModel.allAlivePlayersDown ? "Get ready..." : "Put fingers back", size: 34, maxLines: 2)
+
+            case .callout, .evaluating, .results:
+                EmptyView()
+
+            case .betweenRounds:
+                GameText(text: viewModel.statusText, size: 30, maxLines: 2)
+
+            case .allOut, .winner, .splash:
+                EmptyView()
             }
-
-        case .locked:
-            Text(viewModel.allAlivePlayersDown ? "Get ready..." : "Put fingers back")
-                .font(.system(size: 34, weight: .black, design: .rounded))
-                .multilineTextAlignment(.center)
-                .foregroundStyle(GameTheme.textPrimary)
-
-        case .callout, .evaluating, .results:
-            Text(viewModel.activeItem?.name ?? "")
-                .font(.system(size: 68, weight: .black, design: .rounded))
-                .minimumScaleFactor(0.58)
-                .lineLimit(1)
-                .foregroundStyle(GameTheme.textOnSurface)
-                .padding(.horizontal, 28)
-                .padding(.vertical, 18)
-                .background(GameTheme.surface.opacity(0.92), in: Capsule())
-                .shadow(color: GameTheme.shadow, radius: 18, x: 0, y: 8)
-
-        case .betweenRounds:
-            Text(viewModel.statusText)
-                .font(.system(size: 30, weight: .black, design: .rounded))
-                .multilineTextAlignment(.center)
-                .foregroundStyle(GameTheme.textPrimary)
-
-        case .allOut:
-            Text("Everyone got out!")
-                .font(.system(size: 38, weight: .black, design: .rounded))
-                .multilineTextAlignment(.center)
-                .foregroundStyle(GameTheme.textOnPrimary)
-
-        case .winner:
-            EmptyView()
-
-        case .splash:
-            EmptyView()
         }
+        .frame(maxWidth: .infinity)
+        .frame(height: 220)
     }
 
     @ViewBuilder
@@ -167,9 +167,14 @@ struct GameRootView: View {
             .ignoresSafeArea()
             .overlay {
                 VStack(spacing: 14) {
-                    Image(systemName: "xmark.circle.fill")
-                        .font(.system(size: 70, weight: .black))
-                        .foregroundStyle(GameTheme.primary)
+                    ZStack {
+                        Circle()
+                            .fill(GameTheme.primary)
+                            .frame(width: 70, height: 70)
+                        XMarkShape()
+                            .stroke(GameTheme.textPrimary, style: StrokeStyle(lineWidth: 8, lineCap: .round))
+                            .frame(width: 34, height: 34)
+                    }
 
                     Text("Everyone got out!")
                         .font(.system(size: 38, weight: .black, design: .rounded))
@@ -247,15 +252,21 @@ private struct PlayerTouchCircle: View {
                 .fill(fillColor)
                 .frame(width: diameter, height: diameter)
                 .overlay(circleStroke)
-                .shadow(color: shadowColor, radius: 14, x: 0, y: 8)
+                .shadow(color: shadowColor, radius: 7, x: 0, y: 8)
                 .scaleEffect(scale)
 
             if let symbol {
-                Image(systemName: symbol)
-                    .font(.system(size: diameter * 0.36, weight: .black))
-                    .foregroundStyle(symbolColor)
-                    .shadow(color: GameTheme.shadow, radius: 5, x: 0, y: 2)
-                    .transition(.scale.combined(with: .opacity))
+                if symbol == "check" {
+                    CheckMarkShape()
+                        .stroke(symbolColor, style: StrokeStyle(lineWidth: diameter * 0.058, lineCap: .round, lineJoin: .round))
+                        .frame(width: diameter * 0.36, height: diameter * 0.36)
+                        .transition(.scale.combined(with: .opacity))
+                } else {
+                    XMarkShape()
+                        .stroke(symbolColor, style: StrokeStyle(lineWidth: diameter * 0.058, lineCap: .round, lineJoin: .round))
+                        .frame(width: diameter * 0.36, height: diameter * 0.36)
+                        .transition(.scale.combined(with: .opacity))
+                }
             }
         }
         .opacity(opacity)
@@ -311,9 +322,9 @@ private struct PlayerTouchCircle: View {
     private var symbol: String? {
         switch player.status {
         case .correct, .winner:
-            return "checkmark"
+            return "check"
         case .wrong:
-            return "xmark"
+            return "x"
         default:
             return nil
         }
@@ -351,13 +362,87 @@ private struct PlayerTouchCircle: View {
         switch player.status {
         case .needsFingerBack, .eliminated:
             return .clear
-        case .wrong:
-            return GameTheme.error.opacity(0.28)
         case .correct, .winner:
             return GameTheme.success.opacity(0.34)
+        case .registering, .wrong:
+            return .clear
         default:
             return GameTheme.shadow
         }
+    }
+
+}
+
+struct BirdMark: View {
+    let size: CGFloat
+
+    var body: some View {
+        BirdMarkShape()
+            .fill(GameTheme.primary)
+            .frame(width: size, height: size)
+    }
+}
+
+private struct BirdMarkShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.move(to: CGPoint(x: rect.minX + rect.width * 0.08, y: rect.minY + rect.height * 0.62))
+        path.addQuadCurve(
+            to: CGPoint(x: rect.minX + rect.width * 0.56, y: rect.minY + rect.height * 0.55),
+            control: CGPoint(x: rect.minX + rect.width * 0.34, y: rect.minY + rect.height * 0.12)
+        )
+        path.addQuadCurve(
+            to: CGPoint(x: rect.minX + rect.width * 0.94, y: rect.minY + rect.height * 0.36),
+            control: CGPoint(x: rect.minX + rect.width * 0.75, y: rect.minY + rect.height * 0.25)
+        )
+        path.addQuadCurve(
+            to: CGPoint(x: rect.minX + rect.width * 0.55, y: rect.minY + rect.height * 0.72),
+            control: CGPoint(x: rect.minX + rect.width * 0.72, y: rect.minY + rect.height * 0.56)
+        )
+        path.addQuadCurve(
+            to: CGPoint(x: rect.minX + rect.width * 0.08, y: rect.minY + rect.height * 0.62),
+            control: CGPoint(x: rect.minX + rect.width * 0.28, y: rect.minY + rect.height * 0.94)
+        )
+        path.closeSubpath()
+        return path
+    }
+}
+
+private struct GameText: View {
+    let text: String
+    let size: CGFloat
+    var weight: Font.Weight = .black
+    var color: Color = GameTheme.textPrimary
+    var maxLines: Int = 1
+
+    var body: some View {
+        Text(text)
+            .font(.system(size: size, weight: weight, design: .rounded))
+            .foregroundStyle(color)
+            .multilineTextAlignment(.center)
+            .lineLimit(maxLines)
+            .accessibilityAddTraits(.updatesFrequently)
+    }
+}
+
+private struct CheckMarkShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.move(to: CGPoint(x: rect.minX + rect.width * 0.08, y: rect.midY))
+        path.addLine(to: CGPoint(x: rect.minX + rect.width * 0.42, y: rect.minY + rect.height * 0.84))
+        path.addLine(to: CGPoint(x: rect.minX + rect.width * 0.98, y: rect.minY + rect.height * 0.14))
+        return path
+    }
+}
+
+private struct XMarkShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.move(to: CGPoint(x: rect.minX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+        path.move(to: CGPoint(x: rect.maxX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
+        return path
     }
 }
 
@@ -374,16 +459,14 @@ private struct WinnerView: View {
                 .allowsHitTesting(false)
 
             VStack(spacing: 26) {
-                Image(systemName: "bird.fill")
-                    .font(.system(size: 86, weight: .black))
-                    .foregroundStyle(GameTheme.primary)
+                BirdMark(size: 86)
 
                 Text("You Win")
                     .font(.system(size: 58, weight: .black, design: .rounded))
                     .foregroundStyle(GameTheme.textOnSurface)
 
                 Button(action: playAgain) {
-                    Label("Play Again", systemImage: "arrow.clockwise")
+                    Text("Play Again")
                         .font(.system(size: 20, weight: .black, design: .rounded))
                         .foregroundStyle(GameTheme.textOnPrimary)
                         .padding(.horizontal, 26)
@@ -420,10 +503,9 @@ private struct BirdFlockView: View {
         GeometryReader { proxy in
             ForEach(positions.indices, id: \.self) { index in
                 let item = positions[index]
-                Image(systemName: "bird.fill")
-                    .font(.system(size: item.size, weight: .black))
-                    .foregroundStyle(GameTheme.surface)
-                    .rotationEffect(.degrees(item.rotation))
+                Circle()
+                    .fill(GameTheme.surface)
+                    .frame(width: item.size, height: item.size)
                     .position(
                         x: proxy.size.width * item.x,
                         y: proxy.size.height * item.y

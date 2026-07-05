@@ -9,11 +9,9 @@ struct SplashView: View {
             GameTheme.background.ignoresSafeArea()
 
             VStack(spacing: 18) {
-                Image(systemName: "bird.fill")
-                    .font(.system(size: 72, weight: .black))
-                    .foregroundStyle(GameTheme.primary)
+                BirdMark(size: 72)
 
-                Text("Chiddya Udd")
+                Text("Chiddiya Udd")
                     .font(.system(size: 42, weight: .black, design: .rounded))
                     .foregroundStyle(GameTheme.textPrimary)
             }
@@ -26,6 +24,6 @@ struct SplashView: View {
                 }
             }
         }
-        .accessibilityLabel("Chiddya Udd")
+        .accessibilityLabel("Chiddiya Udd bird logo")
     }
 }
